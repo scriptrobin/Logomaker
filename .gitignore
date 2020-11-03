@@ -1,0 +1,8 @@
+# Node stuff
+
+.env
+node_modules
+package-lock.json
+public
+temp
+Logomaker-client
