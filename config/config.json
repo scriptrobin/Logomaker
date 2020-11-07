@@ -1,0 +1,14 @@
+{
+    "development": {
+        "PORT": 3080,
+        "MONGODB_URI": "mongodb://localhost:27017/Logomaker",
+        "JWT_SECRET": "SECRET#123",
+        "JWT_EXP": "10h"
+    },
+    "production": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/Logomaker",
+        "JWT_SECRET": "SECRET#123",
+        "JWT_EXP": "10h"
+    }
+}

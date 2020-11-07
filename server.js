@@ -1,13 +1,30 @@
+require('./config/config');
+require('./models/db');
+require('./config/passportConfig');
 const express = require('express');
 const app = express(),
       bodyParser = require("body-parser");
-      port = 3080;
+const cors = require('cors'),
+port = 3080;
+const passport = require('passport');
+const rtsIndex = require('./routes/index.router');
 
-const users = [];
-
+//middleware
 app.use(bodyParser.json());
+app.use(cors()); 
+app.use(passport.initialize());
+app.use('/api', rtsIndex);
 
-app.get('/api/users', (req, res) => {
+//errorhandler
+app.use((err, req, res, next)=> {
+  if(err.name == 'ValidationError') {
+    var valErrors = [];
+    Object.keys(err.errors).forEach(key => valErrors.push(err.errors[key].message));
+    res.status(422).sennd(valErrors);
+  }
+});
+/* const users = []; */
+/* app.get('/api/users', (req, res) => {
   res.json(users);
 });
 
@@ -19,8 +36,8 @@ app.post('/api/user', (req, res) => {
 
 app.get('/', (req,res) => {
     res.send('App Works !!!!');
-});
+}); */
 
-app.listen(port, () => {
-    console.log(`Server listening on the port::${port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server listening on the port::${process.env.PORT}`);
 });
